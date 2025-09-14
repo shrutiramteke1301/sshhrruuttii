@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Salary Breakup — 12.5 LPA vs 52 LPA</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#0ea5a4;--glass:rgba(255,255,255,0.04)}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:0;background:linear-gradient(180deg,#071627 0%, #0b2836 100%);color:#e6eef6;padding:28px}
+    .wrap{max-width:980px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:4px 0 0;color:var(--muted)}
+    .controls{display:flex;gap:8px}
+    button{background:var(--glass);border:1px solid rgba(255,255,255,0.04);color:inherit;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px 6px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03)}
+    th{color:var(--muted);font-weight:600}
+    .total{font-weight:700;font-size:18px}
+    .meta{color:var(--muted);font-size:13px;margin-top:10px}
+    @media (max-width:760px){.grid{grid-template-columns:1fr}}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .small{font-size:13px;padding:6px 8px}
+    .highlight{color:var(--accent);font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Salary Breakup — ₹12.5 LPA vs ₹52 LPA</h1>
+        <p class="lead">Interactive comparison table (estimates). Click copy/download to use.</p>
+      </div>
+      <div class="controls">
+        <div class="actions">
+          <button id="copyBtn" class="small">Copy HTML</button>
+          <button id="downloadBtn" class="small">Download HTML</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card" id="card1">
+        <h3>₹12.5 LPA (Estimate)</h3>
+        <table>
+          <thead>
+            <tr><th>Component</th><th>Annual</th><th>Monthly</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Basic Pay</td><td>₹7,50,000</td><td>₹62,500</td></tr>
+            <tr><td>HRA</td><td>₹3,00,000</td><td>₹25,000</td></tr>
+            <tr><td>Special Allowance</td><td>₹1,00,000</td><td>₹8,333</td></tr>
+            <tr><td>Employer PF</td><td>₹60,000</td><td>₹5,000</td></tr>
+            <tr><td>Gratuity & Benefits</td><td>₹40,000</td><td>₹3,333</td></tr>
+            <tr><td>Variable/Bonus</td><td>₹50,000</td><td>₹4,166</td></tr>
+            <tr class="total"><td>Total CTC</td><td>₹12,50,000</td><td>₹1,04,166</td></tr>
+          </tbody>
+        </table>
+        <p class="meta">Estimated deductions: PF ~₹5,000, TDS ~₹10k–12k/month → <span class="highlight">In-hand ~₹85k–90k/month</span></p>
+      </div>
+
+      <div class="card" id="card2">
+        <h3>₹52 LPA (Estimate)</h3>
+        <table>
+          <thead>
+            <tr><th>Component</th><th>Annual</th><th>Monthly</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Basic Pay</td><td>₹30,00,000</td><td>₹2,50,000</td></tr>
+            <tr><td>HRA</td><td>₹12,00,000</td><td>₹1,00,000</td></tr>
+            <tr><td>Special Allowance</td><td>₹4,00,000</td><td>₹33,333</td></tr>
+            <tr><td>Employer PF</td><td>₹2,40,000</td><td>₹20,000</td></tr>
+            <tr><td>Gratuity & Benefits</td><td>₹1,60,000</td><td>₹13,333</td></tr>
+            <tr><td>Variable/Bonus</td><td>₹2,00,000</td><td>₹16,666</td></tr>
+            <tr class="total"><td>Total CTC</td><td>₹52,00,000</td><td>₹4,33,333</td></tr>
+          </tbody>
+        </table>
+        <p class="meta">Estimated deductions: PF ~₹20,000, TDS ~₹70k–85k/month → <span class="highlight">In-hand ~₹3.2L–3.5L/month</span></p>
+      </div>
+    </div>
+
+    <section style="margin-top:18px">
+      <div class="card">
+        <h3>Notes & Tips</h3>
+        <ul>
+          <li>These are <strong>estimates</strong>. Exact breakup depends on company policy and tax investments (80C/80D etc.).</li>
+          <li>Switching tax regimes (old vs new) and declaring investments change TDS significantly.</li>
+          <li>Want a personalized detailed slip? Click <em>Copy HTML</em>, paste into an editor, and edit numbers.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const htmlContent = document.documentElement.outerHTML;
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(htmlContent);
+        alert('HTML copied to clipboard — paste into a file and save as salary_breakup.html');
+      }catch(e){
+        alert('Could not copy automatically. You can save the page (Ctrl+S) instead.');
+      }
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      const blob = new Blob([htmlContent],{type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'salary_breakup.html';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
